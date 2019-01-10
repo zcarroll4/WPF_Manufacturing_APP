@@ -24,5 +24,37 @@ namespace WpfApp2
         {
             InitializeComponent();
         }
+
+        private void ApplyButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show($"This is the description: {this.DescriptionText.Text}");
+        }
+
+        private void ResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.WeldButton.IsChecked = this.AssemblyButton.IsChecked = this.PlasmaButton.IsChecked = this.PurchaseButton.IsChecked = this.LaserButton.IsChecked =
+                this.LatheButton.IsChecked = this.DrillButton.IsChecked = this.FoldButton.IsChecked = this.RollButton.IsChecked = this.SawButton.IsChecked = false;
+
+        }
+
+        private void Button_Checked(object sender, RoutedEventArgs e)
+        {
+            this.LengthText.Text += ((CheckBox)sender).Content + ", ";
+        }
+
+        private void FinishDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.NoteText == null)
+                return;
+            var combo = (ComboBox)sender;
+            var value = (ComboBoxItem)combo.SelectedValue;
+            this.NoteText.Text = (string)value.Content;
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            FinishDropdown_SelectionChanged(this.FinishDropdown, null);
+        }
     }
 }
